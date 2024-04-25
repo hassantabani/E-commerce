@@ -39,4 +39,8 @@ Route::name("admin.")->prefix('admin')->group(function(){
 Route::get("Show-User",[AdminController::class, "show_user"])->name("Show-User");
 Route::get("Product",[AdminController::class, "product"])->name("product");
 Route::post("store-product",[AdminController::class, "store_product"])->name("store-product");
+Route::get("show-product",[AdminController::class, "show_product"])->name("show-product");
+Route::post("delete-product",[AdminController::class, "delete_product"])->name("delete-product");
+Route::post("status-product",[AdminController::class, "status_product"])->name("status-product");
+
     });

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use App\Models\User;
+use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -17,10 +19,24 @@ class AdminController extends Controller
     }
 
     public function product(){
-        return view("admin.storeProduct");
+        $category=Category::all();
+        return view("admin.storeProduct",compact("category"));
     }
 
     public function store_product(Request $request){
+        $request->validate([
+            "product_name"=>"required",
+            "product_description"=>"required",
+            "product_category"=>"required",
+            "main_image"=>"required",
+        ]);
+
+        $input= $request->all();
+
+$image =rand(6546656,54554542).'.'.$request->main_image->extension();
+$main_path = $request->main_image->storeAs("main",$image,"public");
+$input['main_image']="storage/".$main_path;
+
         if($request->other_media){
             $uploadfile=[];
             foreach($request->other_media as $o){
@@ -42,7 +58,47 @@ $object->url = "storage/".$path;
 $uploadfile[]=$object;
             }
 
-            dd($uploadfile);
+$input['other_media']=json_encode($uploadfile);
+
         }
+
+        $product = Product::create($input);
+
+        return redirect()->back();
     }
+
+
+    public function show_product(){
+        $product=Product::all();
+        return view("admin.showProduct",compact("product"));
+    }
+
+
+    public function delete_product(Request $request){
+       $product=Product::find($request->id);
+       if($product){
+        $product->delete();
+        return response()->json("Product Deleted Successfully");
+       }else{
+        return response()->json("Product Not found");
+
+       }
+    }
+
+
+    public function status_product(Request $request){
+        $product=Product::find($request->id);
+        if($product){
+        if($product->status== "Active"){
+            $product->status = "InActive";
+        }else{
+            $product->status = "Active";
+        }
+        $product->save();
+         return response()->json("Product Status Updated Successfully");
+        }else{
+         return response()->json("Product Not found");
+ 
+        }
+     }
 }

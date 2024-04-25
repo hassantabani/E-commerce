@@ -36,9 +36,12 @@
           <label class="col-md-4 control-label" for="product_category">PRODUCT CATEGORY</label>
           <div class="col-md-4">
             <select id="product_category" name="product_category" class="form-control">
-                <option value="Men">Men</option>
-                <option value="Women">Women</option>
-                <option value="Children">Children</option>
+                @if($category)
+                @foreach($category as $c)
+                <option value="{{ $c->id }}">{{ $c->name }}</option>
+
+                @endforeach
+                @endif
             </select>
           </div>
         </div>

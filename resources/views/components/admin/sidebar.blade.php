@@ -23,8 +23,8 @@
       </li><!-- End Forms Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-layout-text-window-reverse"></i><span>Show Products</span><i class="bi bi-chevron-down ms-auto"></i>
+        <a class="nav-link collapsed"  href="{{ route("admin.show-product") }}">
+          <i class="bi bi-journal-text"></i><span>Show Prodcuts</span>
         </a>
 
       </li><!-- End Tables Nav -->
