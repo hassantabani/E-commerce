@@ -64,7 +64,7 @@
                               Action
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                              <a class="dropdown-item" href="#">Edit</a>
+                              <a class="dropdown-item" href="#"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal_{{ $p->id }}">Edit</button></a>
                               <a class="dropdown-item" href="#" onclick="delete_data({{ $p->id }})">Delete</a>
                               <a class="dropdown-item" href="#" onclick="status_data({{ $p->id }})"> @if($p->status == "Active")
                               InActive
@@ -75,7 +75,44 @@
                           </div>
                     </td>
                   </tr>
+<!-- Button trigger modal -->
 
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal_{{ $p->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="product_name">PRODUCT NAME</label>
+                <div class="col-md-4">
+                <input id="product_name_{{$p->id  }}" name="product_name"  placeholder="PRODUCT NAME" class="form-control input-md" required="" type="text" value="{{ $p->product_name }}">
+      
+                </div>
+              </div>
+      
+              <!-- Text input-->
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="product_name_fr">PRODUCT DESCRIPTION</label>
+                <div class="col-md-4">
+                <input id="product_description_{{$p->id}}" name="product_description" placeholder="PRODUCT DESCRIPTION" class="form-control input-md" required="" type="text" value="{{ $p->product_description }}">
+      
+                </div>
+              </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" onclick="update({{ $p->id }})">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
                 @endforeach
                 @else
                 <td>No Data</td>
@@ -148,6 +185,35 @@ $.ajax({
   location.reload();
       })
 
+    }
+
+
+    function update(id){
+let product_name= document.getElementById("product_name_"+id).value;
+let product_description= document.getElementById("product_description_"+id).value;
+
+
+var formData = {
+   product_name : product_name,
+   product_description:product_description,
+   id : id
+};
+$.ajax({
+          type:"Post",
+          url: "{{ route('admin.update-product') }}",
+          data:formData,
+          dataType:"json",
+          encode:true,
+          headers:{
+              'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
+          },
+          error: function(xhr,textStatus , errorThrown){
+              console.log(xhr.responseText);
+          }
+      }).done(function(data){
+  alert(data);
+  location.reload();
+      })
     }
     </script>
 @endsection

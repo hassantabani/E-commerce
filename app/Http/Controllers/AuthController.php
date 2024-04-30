@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
@@ -58,5 +60,28 @@ if($user){
     return redirect()->route("login");
 }
 
+    }
+
+
+
+    public function product($category){
+      
+        $product = Product::where("status","Active")->get();
+        $products=[];
+        if($product->count()>0){
+            foreach($product as $p){
+                $categories=Category::find($p->id);
+               
+                if($categories->name == $category){
+                    $p['category_name']=$categories->name;
+$products[]=$p;
+
+                }
+            }
+
+            return view("website.Products",compact("products"));
+        }else{
+            return view("website.Products",compact("products"));
+        }
     }
 }

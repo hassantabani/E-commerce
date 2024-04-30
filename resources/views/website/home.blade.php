@@ -35,7 +35,7 @@
                                             <h4>Women</h4>
                                             <p>Lorem ipsum dolor sit amet, conservisii ctetur adipiscing elit incid.</p>
                                             <div class="main-border-button">
-                                                <a href="#">Discover More</a>
+                                                <a href="{{ route('product', ['Women']) }}">Discover More</a>
                                             </div>
                                         </div>
                                     </div>
@@ -55,7 +55,7 @@
                                             <h4>Men</h4>
                                             <p>Lorem ipsum dolor sit amet, conservisii ctetur adipiscing elit incid.</p>
                                             <div class="main-border-button">
-                                                <a href="#">Discover More</a>
+                                                <a href="{{ route('product', ['Men']) }}">Discover More</a>
                                             </div>
                                         </div>
                                     </div>

@@ -20,6 +20,8 @@ Route::get("/",[WebsiteController::class , "index"])->name('index');
 Route::get("login",[AuthController::class,"login"])->name("login");
 Route::get("logout",[AuthController::class,"logout"])->name("logout");
 Route::get("register",[AuthController::class,"register"])->name("register");
+Route::get("product/{category}",[AuthController::class,"product"])->name("product");
+
 
 
 
@@ -42,5 +44,6 @@ Route::post("store-product",[AdminController::class, "store_product"])->name("st
 Route::get("show-product",[AdminController::class, "show_product"])->name("show-product");
 Route::post("delete-product",[AdminController::class, "delete_product"])->name("delete-product");
 Route::post("status-product",[AdminController::class, "status_product"])->name("status-product");
+Route::post("update-product",[AdminController::class, "update_product"])->name("update-product");
 
     });

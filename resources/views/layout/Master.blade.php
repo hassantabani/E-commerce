@@ -29,6 +29,7 @@ TemplateMo 571 Hexashop
 https://templatemo.com/tm-571-hexashop
 
 -->
+@livewireStyles
     </head>
 
     <body>
@@ -40,7 +41,7 @@ https://templatemo.com/tm-571-hexashop
 
 
 @include("components.footer")
-
+@livewireScripts
         <script src="{{ asset('js/jquery-2.1.0.min.js') }}"></script>
 
         <!-- Bootstrap -->

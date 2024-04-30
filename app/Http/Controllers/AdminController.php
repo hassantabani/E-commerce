@@ -20,7 +20,7 @@ class AdminController extends Controller
 
     public function product(){
         $category=Category::all();
-        return view("admin.storeProduct",compact("category"));
+        return view("admin.livewireProduct",compact("category"));
     }
 
     public function store_product(Request $request){
@@ -98,7 +98,14 @@ $input['other_media']=json_encode($uploadfile);
          return response()->json("Product Status Updated Successfully");
         }else{
          return response()->json("Product Not found");
- 
+
         }
+     }
+
+     public function update_product(Request $request){
+        $product=Product::find($request->id);
+        $input=$request->all();
+$product->update($input);
+return response()->json("Product Status Updated Successfully");
      }
 }
